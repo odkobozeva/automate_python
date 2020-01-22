@@ -1,5 +1,16 @@
 import pytest
 import variables.url
+from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
+
+@pytest.fixture(scope="session")
+def browser():
+    capabilities = DesiredCapabilities.CHROME
+    capabilities['loggingPrefs'] = {'browser': 'ALL'}
+    driver = webdriver.Chrome()
+    yield driver
+    driver.quit()
 
 
 def pytest_addoption(parser):
