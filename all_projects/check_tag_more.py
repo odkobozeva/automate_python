@@ -1,10 +1,6 @@
 import pytest
 import requests
-import json
-from lxml import html
-from lxml import etree
 from bs4 import BeautifulSoup
-import allure
 
 
 @pytest.mark.parametrize('url', ['https://hi-news.ru/',
@@ -28,7 +24,7 @@ def tag_is_exist(url):
     elif f'{url}' == 'https://appleinsider.ru/':
         find_post = {'tag': 'article', 'class': ''}
         find_link_more = {'tag': 'a', 'class': 'btn-outline'}
-    elif f'{url}' == 'https://androidinsider.ru/':
+    else:
         find_post = {'tag': 'div', 'class': 'post-title'}
         find_link_more = {'tag': 'a', 'class': 'more-link'}
     flag = True
