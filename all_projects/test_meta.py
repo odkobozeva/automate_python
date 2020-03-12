@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import allure
 import variables.url
 import variables.meta_apple
+import variables.meta_android
 import re
 
 apple_with_robots = variables.url.url_apple_with_robots
@@ -13,6 +14,7 @@ hinews_without_robots = variables.url.url_hinews_without_robots
 android_with_robots = variables.url.url_android_with_robots
 android_without_robots = variables.url.url_android_without_robots
 meta_apple = variables.meta_apple.description
+meta_android = variables.meta_android.description
 
 '''appleinsider'''
 
@@ -33,6 +35,12 @@ def test_check_meta_without_robots_apple(env, url):
 @pytest.mark.parametrize('url', apple_with_robots + apple_without_robots)
 def test_check_meta_canonical_apple(env, url):
     check_meta_canonical(env, url)
+
+
+@allure.feature('Проверка meta description')
+@pytest.mark.parametrize("url", meta_apple)
+def test_check_meta_description_apple(env, url):
+    check_meta_description(env, url)
 
 
 '''hi-news'''
@@ -78,8 +86,8 @@ def test_check_meta_canonical_android(env, url):
 
 
 @allure.feature('Проверка meta description')
-@pytest.mark.parametrize("url", meta_apple)
-def test_check_meta_description_apple(env, url):
+@pytest.mark.parametrize("url", meta_android)
+def test_check_meta_description_android(env, url):
     check_meta_description(env, url)
 
 
@@ -153,7 +161,6 @@ def check_meta_canonical(env, url):
 
 
 def check_meta_description(env, url):
-    flag = True
     for key in url.keys():
         print(f'Проверяем {env}{key}')
         try:
@@ -162,17 +169,14 @@ def check_meta_description(env, url):
         except:
             print(f"Ошибка соединения\n")
             pytest.fail('Status - Fail')
-
         if len(meta) > 1:
             print("На странице несколько meta name ='description'\n")
             pytest.fail('Status - Fail. На странице несколько meta name ="description"')
         elif len(meta) == 0:
             print("На странице нет meta name ='description'\n")
             pytest.fail('Status - Fail. На странице нет meta name ="description"')
-        if meta[0] is None:
-            meta_content = 'None'
-        else:
-            meta_content = meta[0]["content"]
+
+        meta_content = meta[0]["content"]
         try:
             with allure.step(key):
                 with allure.step(f'Было - {url[key]}'):

@@ -45,7 +45,7 @@ def check_validate(env, articles):
             except AssertionError:
                 flag = False
                 print(f"{status} - {env}{article_url}")
-                errors = result[article_url]['errors']
+                errors = result[env + article_url]['errors']
                 for counter, error in enumerate(errors):
                     with allure.step(f"{counter} - {error['message']}"):
                         print(counter, error['message'])
