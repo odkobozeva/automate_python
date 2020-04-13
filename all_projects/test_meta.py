@@ -5,90 +5,137 @@ import allure
 import variables.url
 import variables.meta_apple
 import variables.meta_android
+import variables.meta_hinews
 import re
 
 apple_with_robots = variables.url.url_apple_with_robots
 apple_without_robots = variables.url.url_apple_without_robots
+meta_description_apple = variables.meta_apple.description
+meta_title_apple = variables.meta_apple.title
+
 hinews_with_robots = variables.url.url_hinews_with_robots
 hinews_without_robots = variables.url.url_hinews_without_robots
+meta_description_hinews = variables.meta_hinews.description
+meta_title_hinews = variables.meta_hinews.title
+
 android_with_robots = variables.url.url_android_with_robots
 android_without_robots = variables.url.url_android_without_robots
-meta_apple = variables.meta_apple.description
-meta_android = variables.meta_android.description
+meta_description_android = variables.meta_android.description
+meta_title_android = variables.meta_android.title
+
+
 
 '''appleinsider'''
 
 
+@pytest.mark.robots
 @allure.feature('Проверка meta name="robots"')
 @pytest.mark.parametrize('url', apple_with_robots)
 def test_check_meta_robots_apple(env, url):
     check_meta_robots(env, url)
 
 
+@pytest.mark.robots
 @allure.feature('Проверка meta without name="robots"')
 @pytest.mark.parametrize('url', apple_without_robots)
 def test_check_meta_without_robots_apple(env, url):
     check_meta_without_robots(env, url)
 
 
+@pytest.mark.canonical
 @allure.feature('Проверка link canonical')
 @pytest.mark.parametrize('url', apple_with_robots + apple_without_robots)
 def test_check_meta_canonical_apple(env, url):
     check_meta_canonical(env, url)
 
 
+@pytest.mark.description
 @allure.feature('Проверка meta description')
-@pytest.mark.parametrize("url", meta_apple)
+@pytest.mark.parametrize("url", meta_description_apple)
 def test_check_meta_description_apple(env, url):
     check_meta_description(env, url)
+
+@pytest.mark.title
+@allure.feature('Проверка meta title')
+@pytest.mark.parametrize("url", meta_title_apple)
+def test_check_meta_title_apple(env, url):
+    check_meta_title(env, url)
 
 
 '''hi-news'''
 
 
+@pytest.mark.robots
 @allure.feature('Проверка meta name="robots"')
 @pytest.mark.parametrize('url', hinews_with_robots)
 def test_check_meta_robots_hinews(env, url):
     check_meta_robots(env, url)
 
 
+@pytest.mark.robots
 @allure.feature('Проверка meta without name="robots"')
 @pytest.mark.parametrize('url', hinews_without_robots)
 def test_check_meta_without_robots_hinews(env, url):
     check_meta_without_robots(env, url)
 
 
+@pytest.mark.canonical
 @allure.feature('Проверка link canonical')
 @pytest.mark.parametrize('url', hinews_with_robots + hinews_without_robots)
 def test_check_meta_canonical_hinews(env, url):
     check_meta_canonical(env, url)
 
 
+@pytest.mark.description
+@allure.feature('Проверка meta description')
+@pytest.mark.parametrize("url", meta_description_hinews)
+def test_check_meta_description_hinews(env, url):
+    check_meta_description(env, url)
+
+
+@pytest.mark.title
+@allure.feature('Проверка meta title')
+@pytest.mark.parametrize("url", meta_title_hinews)
+def test_check_meta_title_hinews(env, url):
+    check_meta_title(env, url)
+
+
 '''androidinsider'''
 
 
+@pytest.mark.robots
 @allure.feature('Проверка meta name="robots"')
 @pytest.mark.parametrize('url', android_with_robots)
 def test_check_meta_robots_android(env, url):
     check_meta_robots(env, url)
 
 
+@pytest.mark.robots
 @allure.feature('Проверка meta without name="robots"')
 @pytest.mark.parametrize('url', android_without_robots)
 def test_check_meta_without_robots_android(env, url):
     check_meta_without_robots(env, url)
 
 
+@pytest.mark.canonical
 @allure.feature('Проверка link canonical')
 @pytest.mark.parametrize('url', android_with_robots + android_without_robots)
 def test_check_meta_canonical_android(env, url):
     check_meta_canonical(env, url)
 
 
+@pytest.mark.description
 @allure.feature('Проверка meta description')
-@pytest.mark.parametrize("url", meta_android)
+@pytest.mark.parametrize("url", meta_description_android)
 def test_check_meta_description_android(env, url):
     check_meta_description(env, url)
+
+
+@pytest.mark.title
+@allure.feature('Проверка meta title')
+@pytest.mark.parametrize("url", meta_title_android)
+def test_check_meta_title_android(env, url):
+    check_meta_title(env, url)
 
 
 def check_meta_robots(env, url):
@@ -166,17 +213,20 @@ def check_meta_description(env, url):
         try:
             response = requests.get(env + key).text
             meta = BeautifulSoup(response, features="lxml").find_all('meta', attrs={'name': 'description'})
+
         except:
             print(f"Ошибка соединения\n")
             pytest.fail('Status - Fail')
+
         if len(meta) > 1:
             print("На странице несколько meta name ='description'\n")
             pytest.fail('Status - Fail. На странице несколько meta name ="description"')
-        elif len(meta) == 0:
-            print("На странице нет meta name ='description'\n")
-            pytest.fail('Status - Fail. На странице нет meta name ="description"')
 
-        meta_content = meta[0]["content"]
+        elif len(meta) == 0:
+            meta_content = ''
+        else:
+            meta_content = meta[0]["content"]
+
         try:
             with allure.step(key):
                 with allure.step(f'Было - {url[key]}'):
@@ -187,3 +237,35 @@ def check_meta_description(env, url):
         except AssertionError:
             print("Изменился meta description. См. отчет.\n")
             pytest.fail('Status - Fail. Изменился meta description. См. отчет.')
+
+
+def check_meta_title(env, url):
+    for key in url.keys():
+        print(f'Проверяем {env}{key}')
+        try:
+            response = requests.get(env + key).text
+            meta = BeautifulSoup(response, features="lxml").head.title
+
+        except:
+            print(f"Ошибка соединения\n")
+            pytest.fail('Status - Fail')
+
+        if len(meta) > 1:
+            print("На странице несколько meta name ='title'\n")
+            pytest.fail('Status - Fail. На странице несколько meta name ="title"')
+
+        elif len(meta) == 0:
+            meta_content = ''
+        else:
+            meta_content = meta.text
+
+        try:
+            with allure.step(key):
+                with allure.step(f'Было - {url[key]}'):
+                    pass
+                with allure.step(f'Стало - {meta_content}'):
+                    pass
+                assert url[key] == meta_content
+        except AssertionError:
+            print("Изменился meta title. См. отчет.\n")
+            pytest.fail('Status - Fail. Изменился meta title. См. отчет.')
