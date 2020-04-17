@@ -27,7 +27,7 @@ meta_title_android = variables.meta_android.title
 
 '''appleinsider'''
 
-
+@pytest.mark.apple
 @pytest.mark.robots
 @allure.feature('Проверка meta name="robots"')
 @pytest.mark.parametrize('url', apple_with_robots)
@@ -35,6 +35,7 @@ def test_check_meta_robots_apple(env, url):
     check_meta_robots(env, url)
 
 
+@pytest.mark.apple
 @pytest.mark.robots
 @allure.feature('Проверка meta without name="robots"')
 @pytest.mark.parametrize('url', apple_without_robots)
@@ -42,6 +43,7 @@ def test_check_meta_without_robots_apple(env, url):
     check_meta_without_robots(env, url)
 
 
+@pytest.mark.apple
 @pytest.mark.canonical
 @allure.feature('Проверка link canonical')
 @pytest.mark.parametrize('url', apple_with_robots + apple_without_robots)
@@ -49,12 +51,15 @@ def test_check_meta_canonical_apple(env, url):
     check_meta_canonical(env, url)
 
 
+@pytest.mark.apple
 @pytest.mark.description
 @allure.feature('Проверка meta description')
 @pytest.mark.parametrize("url", meta_description_apple)
 def test_check_meta_description_apple(env, url):
     check_meta_description(env, url)
 
+
+@pytest.mark.apple
 @pytest.mark.title
 @allure.feature('Проверка meta title')
 @pytest.mark.parametrize("url", meta_title_apple)
@@ -65,6 +70,7 @@ def test_check_meta_title_apple(env, url):
 '''hi-news'''
 
 
+@pytest.mark.hinews
 @pytest.mark.robots
 @allure.feature('Проверка meta name="robots"')
 @pytest.mark.parametrize('url', hinews_with_robots)
@@ -72,6 +78,7 @@ def test_check_meta_robots_hinews(env, url):
     check_meta_robots(env, url)
 
 
+@pytest.mark.hinews
 @pytest.mark.robots
 @allure.feature('Проверка meta without name="robots"')
 @pytest.mark.parametrize('url', hinews_without_robots)
@@ -79,6 +86,7 @@ def test_check_meta_without_robots_hinews(env, url):
     check_meta_without_robots(env, url)
 
 
+@pytest.mark.hinews
 @pytest.mark.canonical
 @allure.feature('Проверка link canonical')
 @pytest.mark.parametrize('url', hinews_with_robots + hinews_without_robots)
@@ -86,6 +94,7 @@ def test_check_meta_canonical_hinews(env, url):
     check_meta_canonical(env, url)
 
 
+@pytest.mark.hinews
 @pytest.mark.description
 @allure.feature('Проверка meta description')
 @pytest.mark.parametrize("url", meta_description_hinews)
@@ -93,6 +102,7 @@ def test_check_meta_description_hinews(env, url):
     check_meta_description(env, url)
 
 
+@pytest.mark.hinews
 @pytest.mark.title
 @allure.feature('Проверка meta title')
 @pytest.mark.parametrize("url", meta_title_hinews)
@@ -103,6 +113,7 @@ def test_check_meta_title_hinews(env, url):
 '''androidinsider'''
 
 
+@pytest.mark.android
 @pytest.mark.robots
 @allure.feature('Проверка meta name="robots"')
 @pytest.mark.parametrize('url', android_with_robots)
@@ -110,6 +121,7 @@ def test_check_meta_robots_android(env, url):
     check_meta_robots(env, url)
 
 
+@pytest.mark.android
 @pytest.mark.robots
 @allure.feature('Проверка meta without name="robots"')
 @pytest.mark.parametrize('url', android_without_robots)
@@ -117,6 +129,7 @@ def test_check_meta_without_robots_android(env, url):
     check_meta_without_robots(env, url)
 
 
+@pytest.mark.android
 @pytest.mark.canonical
 @allure.feature('Проверка link canonical')
 @pytest.mark.parametrize('url', android_with_robots + android_without_robots)
@@ -124,6 +137,7 @@ def test_check_meta_canonical_android(env, url):
     check_meta_canonical(env, url)
 
 
+@pytest.mark.android
 @pytest.mark.description
 @allure.feature('Проверка meta description')
 @pytest.mark.parametrize("url", meta_description_android)
@@ -131,6 +145,7 @@ def test_check_meta_description_android(env, url):
     check_meta_description(env, url)
 
 
+@pytest.mark.android
 @pytest.mark.title
 @allure.feature('Проверка meta title')
 @pytest.mark.parametrize("url", meta_title_android)
