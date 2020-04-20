@@ -36,9 +36,9 @@ description = [
 {"appleinsider.ru/apple-v-licax/stiv-voznyak-rasskazal-pro-svoyo-lyubimoe-ustrojstvo-ot-apple.html": "Если подумать, то смартфон – это, пожалуй, единственное устройство, с которым большинство из нас ни за что не расстанется. Планшеты, смарт-часы, фитнес-брасл..."},
 {"appleinsider.ru/apple-v-licax/eks-marketolog-macintosh-rasskazal-kak-uderzhatsya-na-rabote-v-apple.html": "Работу в передовой компании можно сравнить с марафонским забегом. Недостаточно просто показать себя успешным кандидатом на собеседовании. Не менее важно, пол..."},
 {"appleinsider.ru/analysis/vazhnaya-funkciya-apple-watch-okazalas-bespoleznoj-dlya-mnogix-polzovatelej.html": "Несмотря на возможность принять входящий звонок прямо с Apple Watch, подавляющее большинство пользователей не делают этого, предпочитая часам телефон. Это сл..."},
-{'appleinsider.ru/advert': ''},
-{'appleinsider.ru/about': ''},
-{'appleinsider.ru/discounts': ''}
+{'appleinsider.ru/advert': 'На странице нет meta description'},
+{'appleinsider.ru/about': 'На странице нет meta description'},
+{'appleinsider.ru/discounts': 'На странице нет meta description'}
 ]
 
 title = [

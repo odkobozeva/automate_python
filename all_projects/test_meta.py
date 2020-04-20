@@ -227,20 +227,24 @@ def check_meta_description(env, url):
         print(f'Проверяем {env}{key}')
         try:
             response = requests.get(env + key).text
-            meta = BeautifulSoup(response, features="lxml").find_all('meta', attrs={'name': 'description'})
+            meta_description = BeautifulSoup(response, features="lxml").find_all('meta', attrs={'name': 'description'})
 
         except:
             print(f"Ошибка соединения\n")
             pytest.fail('Status - Fail')
 
-        if len(meta) > 1:
-            print("На странице несколько meta name ='description'\n")
+        if len(meta_description) == 0:
+            meta_content = 'На странице нет meta description'
+
+        elif len(meta_description) > 1:
+            meta_content = 'На странице несколько meta description'
             pytest.fail('Status - Fail. На странице несколько meta name ="description"')
 
-        elif len(meta) == 0:
+        elif meta_description is None:
             meta_content = ''
+
         else:
-            meta_content = meta[0]["content"]
+            meta_content = meta_description[0]["content"]
 
         try:
             with allure.step(key):
@@ -259,20 +263,23 @@ def check_meta_title(env, url):
         print(f'Проверяем {env}{key}')
         try:
             response = requests.get(env + key).text
-            meta = BeautifulSoup(response, features="lxml").head.title
+            meta_title = BeautifulSoup(response, features="lxml").find_all('title')
 
         except:
             print(f"Ошибка соединения\n")
             pytest.fail('Status - Fail')
 
-        if len(meta) > 1:
-            print("На странице несколько meta name ='title'\n")
-            pytest.fail('Status - Fail. На странице несколько meta name ="title"')
+        if len(meta_title) == 0:
+            meta_content = 'На странице нет meta title'
 
-        elif len(meta) == 0:
+        elif len(meta_title) > 1:
+            meta_content = 'На странице несколько meta title'
+
+        elif meta_title is None:
             meta_content = ''
+
         else:
-            meta_content = meta.text
+            meta_content = meta_title[0].text
 
         try:
             with allure.step(key):
