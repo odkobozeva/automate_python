@@ -274,6 +274,7 @@ def check_meta_title(env, url):
 
         elif len(meta_title) > 1:
             meta_content = 'На странице несколько meta title'
+            pytest.fail('Status - Fail. На странице несколько meta title')
 
         elif meta_title is None:
             meta_content = ''
