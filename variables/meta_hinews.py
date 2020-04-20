@@ -39,8 +39,8 @@ description = [
 {"hi-news.ru/research-development/obnaruzhennoe-zaxoronenie-neandertalcev-delaet-ix-gorazdo-chelovechnee-chem-my-schitali-ranee.html": "Неандертальцы - вымершие представители рода Homo Sapiens, чей вид полностью исчез при неизвестных обстоятельствах около 40 тысяч лет назад. Несмотря на то, ч..."},
 {"hi-news.ru/research-development/korallovye-rify-mogut-polnostyu-ischeznut-v-2100-godu.html": "Постоянные читатели нашего сайта наверняка в курсе того, что моря и океаны уже не могут обеспечить животным и растениям идеальные условия для жизни и роста. ..."},
 {"hi-news.ru/research-development/antisocialnoe-povedenie-otpechatyvaetsya-v-mozge.html": "Согласно статистике, каждый четвертый человек хотя бы раз в детстве и юности демонстрирует образцы антисоциального поведения. По мере взросления большинство ..."},
-{"hi-news.ru/about": ""},
-{"hi-news.ru/advert": ""},
+{"hi-news.ru/about": "На странице нет meta description"},
+{"hi-news.ru/advert": "На странице нет meta description"},
 ]
 
 title = [
