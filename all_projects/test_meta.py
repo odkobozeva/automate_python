@@ -6,6 +6,7 @@ import variables.url
 import variables.meta_apple
 import variables.meta_android
 import variables.meta_hinews
+import variables.meta_2bitcoins
 import re
 
 apple_with_robots = variables.url.url_apple_with_robots
@@ -23,9 +24,12 @@ android_without_robots = variables.url.url_android_without_robots
 meta_description_android = variables.meta_android.description
 meta_title_android = variables.meta_android.title
 
+meta_description_bitcoins = variables.meta_2bitcoins.description
+meta_title_bitcoins = variables.meta_2bitcoins.title
 
 
 '''appleinsider'''
+
 
 @pytest.mark.apple
 @pytest.mark.robots
@@ -153,6 +157,25 @@ def test_check_meta_title_android(env, url):
     check_meta_title(env, url)
 
 
+'''2bitcoins'''
+
+
+@pytest.mark.bitcoins
+@pytest.mark.description
+@allure.feature('Проверка meta description')
+@pytest.mark.parametrize("url", meta_description_bitcoins)
+def test_check_meta_description_bitcoins(env, url):
+    check_meta_description(env, url)
+
+
+@pytest.mark.bitcoins
+@pytest.mark.title
+@allure.feature('Проверка meta title')
+@pytest.mark.parametrize("url", meta_title_bitcoins)
+def test_check_meta_title_bitcoins(env, url):
+    check_meta_title(env, url)
+
+
 def check_meta_robots(env, url):
     print(f'Проверяем {env}{url}')
     meta_robots = ''
@@ -237,7 +260,7 @@ def check_meta_description(env, url):
             meta_content = 'На странице нет meta description'
 
         elif len(meta_description) > 1:
-            meta_content = 'На странице несколько meta description'
+            print('На странице несколько meta name ="description"')
             pytest.fail('Status - Fail. На странице несколько meta name ="description"')
 
         elif meta_description is None:
@@ -273,7 +296,7 @@ def check_meta_title(env, url):
             meta_content = 'На странице нет meta title'
 
         elif len(meta_title) > 1:
-            meta_content = 'На странице несколько meta title'
+            print('На странице несколько meta title')
             pytest.fail('Status - Fail. На странице несколько meta title')
 
         elif meta_title is None:
