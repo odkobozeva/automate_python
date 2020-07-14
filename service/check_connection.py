@@ -23,7 +23,7 @@ def get_url(request):
 @allure.feature('Проверка ответа сервера')
 def test_connection(env, get_url):
     flag = True
-    url = env + get_url
+    url = env + get_url + '?a=1'
     if url == 'http://beta:ateb@dev.eth.2miners.com/en':
         url = url.replace("dev.eth", "eth.dev")
     try:
