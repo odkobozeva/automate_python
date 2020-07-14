@@ -51,7 +51,7 @@ def server_is_available(url):
     status_auth = 0
     try:
         with allure.step(f'Проверяем ответ сервера от - {url}'):
-            status_auth = requests.get(f'{url}', auth=('beta', 'ateb')).status_code
+            status_auth = requests.get(f'{url}', auth=('****', '****')).status_code
             assert status_auth == 200
 
     except requests.exceptions.SSLError:
