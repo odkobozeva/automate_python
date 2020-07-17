@@ -1,6 +1,7 @@
 import pytest
 import requests
 import allure
+from bs4 import BeautifulSoup
 import variables.url
 
 
@@ -27,10 +28,13 @@ def test_connection(env, get_url):
     if url == 'http://beta:ateb@dev.eth.2miners.com/en':
         url = url.replace("dev.eth", "eth.dev")
     try:
-        status_auth = requests.get(url).status_code
+        response = requests.get(url)
+        status_h1 = BeautifulSoup(response.text, 'html.parser').find("h1")
+        status_auth = response.status_code
         try:
             with allure.step(f'{status_auth} - ответ сервера - {url}'):
                 assert status_auth == 200
+                assert status_h1 is not None
         except AssertionError:
             flag = False
             print(f'Server Error - {status_auth} - {url}')
