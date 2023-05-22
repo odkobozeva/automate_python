@@ -1,5 +1,5 @@
 pytest==4.4.1
-requests==2.22.0
+requests==2.31.0
 allure-pytest==2.6.2
 beautifulsoup4==4.7.1
 lxml==4.4.0
